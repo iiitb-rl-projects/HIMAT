@@ -1,0 +1,25 @@
+import networkx as nx
+G=nx.DiGraph();
+G.add_node("Start")
+G.add_node("End")
+G.add_node("Pickup")
+G.add_node("PutDown")
+G.add_node("E1")
+G.add_node("E2")
+G.add_node("N1")
+G.add_node("N2")
+G.add_node("N3")
+G.add_node("S1")
+G.add_node("S2")
+G.add_node("S3")
+G.add_node("S4")
+G.add_node("W1")
+weights=[
+0: "taxi.loc",
+1: "pass.loc",
+2: "pass.dest"]
+G.add_weighted_edges_from([("Start", "E1", 0),("E1","E2",0),
+("E2","N1",0),("N1","N2",0),("N2","N3",0),("N3","Pickup",0),
+("Pickup","S1",0),("S1","S2",0),("S2","S3",0),("S3","S4",0),
+("S4","W1",0),("W1","Putdown",0),("Putdown","End",0), ("Start","Pickup",1),
+("Pickup","Putdown",1), ("Start","PutDown",2),("Putdown","End",1),("Putdown","End",2)])
