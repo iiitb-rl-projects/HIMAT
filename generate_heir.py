@@ -6,7 +6,8 @@ import platform
 import networkx as nx
 import json
 import matplotlib.pyplot as plt
-#  1. Merging heirarchy for divide nodes by adding variable names in the nodes     2. reading structure from json
+from graphviz import Digraph
+#  1. Merging hierarchy for divide nodes by adding variable names in the nodes     2. reading structure from json
 #act_code=[]
 #act_string=raw_input()
 #l=len(codes)
@@ -21,38 +22,56 @@ import matplotlib.pyplot as plt
 #l=len(cds)
 #for i in range(0,l):
 #	var_codes.append(int(cds[i]))
+def make_graph(hierarchy, iteration):
+	global actions
+	global act_back
+	iteration=iteration+".gv"
+	d=Digraph('G',filename=iteration)
+	for item in hierarchy:
+		d.node(str(item))
+	for item in hierarchy:
+		if(hierarchy[item]["typ"]!="Actions"):
+			for i in range(0,len(hierarchy[item]["children"])):
+				d.edge(str(item),str(hierarchy[item]["children"][i]))
+		else:
+			for i in range(0,len(hierarchy[item]["value"])):
+				d.edge(str(item),str(act_back[str(hierarchy[item]["value"][i])]))
+	d.format='pdf'
+	d.render()
 
-def merge_heirarchy(heirarchy1 ,heirarchy2, root_task1,root_task2):
-	if heirarchy1[root_task1]["typ"]=="Actions":
-		heirarchy1[root_task1]["value"]=list(set(heirarchy1[root_task1]["value"]+heirarchy2[root_task2]["value"]))
+
+
+def merge_hierarchy(hierarchy1 ,hierarchy2, root_task1,root_task2):
+	if hierarchy1[root_task1]["typ"]=="Actions":
+		hierarchy1[root_task1]["value"]=list(set(hierarchy1[root_task1]["value"]+hierarchy2[root_task2]["value"]))
 		return 
 
-	elif((heirarchy1[root_task1]["typ"]=="sequence" and heirarchy2[root_task1]["typ"]=="sequence") or (heirarchy1[root_task1]["typ"]=="root" and heirarchy2[root_task2]["typ"]=="root") ):
-		heirarchy1[root_task1]["children"].sort()
-		heirarchy2[root_task2]["children"].sort()
-		diff=len(heirarchy1[root_task1]["children"])-len(heirarchy2[root_task2]["children"])
+	elif((hierarchy1[root_task1]["typ"]=="sequence" and hierarchy2[root_task1]["typ"]=="sequence") or (hierarchy1[root_task1]["typ"]=="root" and hierarchy2[root_task2]["typ"]=="root") ):
+		hierarchy1[root_task1]["children"].sort()
+		hierarchy2[root_task2]["children"].sort()
+		diff=len(hierarchy1[root_task1]["children"])-len(hierarchy2[root_task2]["children"])
 		if(diff>0):
 			for i in range(0,diff):
 				queue=[]
-				heirarchy1[str((heirarchy2[root_task2]["children"])[i])+"_1"]=heirarchy2[(heirarchy2[root_task2]["children"])[i]]
-				heirarchy1[root_task1]["children"].append(str((heirarchy2[root_task2]["children"])[i])+"_1")
-				queue.append(heirarchy2[(heirarchy2[root_task2]["children"])[i]]["children"])
+				hierarchy1[str((hierarchy2[root_task2]["children"])[i])+"_1"]=hierarchy2[(hierarchy2[root_task2]["children"])[i]]
+				hierarchy1[root_task1]["children"].append(str((hierarchy2[root_task2]["children"])[i])+"_1")
+				queue.append(hierarchy2[(hierarchy2[root_task2]["children"])[i]]["children"])
 				while(queue):
 					new_ele=queue[0]
-					heirarchy1[(str(new_ele)+"_1")]=heirarchy2[new_ele]
-					queue.append(heirarchy2[new_ele]["children"])
+					hierarchy1[(str(new_ele)+"_1")]=hierarchy2[new_ele]
+					queue.append(hierarchy2[new_ele]["children"])
 					queue.remove(new_ele)
 
 
 
 
-		for i in range(0,len(heirarchy1[root_task1]["children"])):
-			merge_heirarchy(heirarchy1,heirarchy2,heirarchy1[root_task1]["children"][i],heirarchy2[root_task2]["children"][i])
+		for i in range(0,len(hierarchy1[root_task1]["children"])):
+			merge_hierarchy(hierarchy1,hierarchy2,hierarchy1[root_task1]["children"][i],hierarchy2[root_task2]["children"][i])
 	else:
-		heirarchy1[root_task1]["typ"]="divide"
-		heirarchy2[root_task2]["typ"]="divide"
-		list1=heirarchy1[root_task1]["variables"]
-		list2=heirarchy2[root_task2]["variables"]
+		hierarchy1[root_task1]["typ"]="divide"
+		hierarchy2[root_task2]["typ"]="divide"
+		list1=hierarchy1[root_task1]["variables"]
+		list2=hierarchy2[root_task2]["variables"]
 		for i in range(0,len(list1)):
 			flag=0
 			mark_j=-1
@@ -63,21 +82,21 @@ def merge_heirarchy(heirarchy1 ,heirarchy2, root_task1,root_task2):
 			if(flag==0):
 				queue=[]
 				for k in range(0,len(list1)):
-					if(list1[i] in heirarchy1[heirarchy1[root_task1]["children"][k]]["variables"]):
-						heirarchy2[str(heirarchy1[root_task1]["children"][k])+"_1"]=heirarchy1[heirarchy1[root_task1]["children"][k]]
-						queue.append(heirarchy1[heirarchy1[root_task1]["children"][k]]["children"])
+					if(list1[i] in hierarchy1[hierarchy1[root_task1]["children"][k]]["variables"]):
+						hierarchy2[str(hierarchy1[root_task1]["children"][k])+"_1"]=hierarchy1[hierarchy1[root_task1]["children"][k]]
+						queue.append(hierarchy1[hierarchy1[root_task1]["children"][k]]["children"])
 						while(queue):
 							new_ele=queue[0]
-							heirarchy2[(str(new_ele)+"_1")]=heirarchy1[new_ele]
-							queue.append(heirarchy1[new_ele]["children"])
+							hierarchy2[(str(new_ele)+"_1")]=hierarchy1[new_ele]
+							queue.append(hierarchy1[new_ele]["children"])
 							queue.remove(new_ele)
 			else:
 				for k in range(0,len(list1)):
-					jk=heirarchy1[heirarchy1[root_task1]["children"][k]]["variables"]
-					if(list1[i] in heirarchy1[heirarchy1[root_task1]["children"][k]]["variables"]):
+					jk=hierarchy1[hierarchy1[root_task1]["children"][k]]["variables"]
+					if(list1[i] in hierarchy1[hierarchy1[root_task1]["children"][k]]["variables"]):
 						for p in range(0,len(list2)):
-							if(list2[mark_j] in heirarchy2[heirarchy2[root_task2]["children"][p]]["variables"]):
-								merge_heirarchy(heirarchy1,heirarchy2,heirarchy1[root_task1]["children"][k],heirarchy2[root_task2]["children"][p])
+							if(list2[mark_j] in hierarchy2[hierarchy2[root_task2]["children"][p]]["variables"]):
+								merge_hierarchy(hierarchy1,hierarchy2,hierarchy1[root_task1]["children"][k],hierarchy2[root_task2]["children"][p])
 
 
 
@@ -89,19 +108,19 @@ def merge_heirarchy(heirarchy1 ,heirarchy2, root_task1,root_task2):
 			if(flag==0):
 				queue=[]
 				for k in range(0,len(list2)):
-					if(list2[i]in heirarchy2[heirarchy2][root_task2["children"][k]]["variables"]):
-						heirarchy1[str(heirarchy2[root_task2]["children"][k])+"_1"]=heirarchy2[heirarchy2[root_task2]["children"][k]]
-						queue.append(heirarchy2[heirarchy2[root_task2]["children"][k]]["children"])
+					if(list2[i]in hierarchy2[hierarchy2][root_task2["children"][k]]["variables"]):
+						hierarchy1[str(hierarchy2[root_task2]["children"][k])+"_1"]=hierarchy2[hierarchy2[root_task2]["children"][k]]
+						queue.append(hierarchy2[hierarchy2[root_task2]["children"][k]]["children"])
 						while(queue):
 							new_ele=queue[0]
-							heirarchy1[(str(new_ele)+"_1")]=heirarchy2[new_ele]
-							queue.append(heirarchy2[new_ele]["children"])
+							hierarchy1[(str(new_ele)+"_1")]=hierarchy2[new_ele]
+							queue.append(hierarchy2[new_ele]["children"])
 							queue.remove(new_ele)
 
 
 
 
-def make_heirarchy(heirarchy,start_node, end_node, typ_e, parent_task, va):
+def make_hierarchy(hierarchy,start_node, end_node, typ_e, parent_task, va):
 	global my_edges
 	global skeleton
 	global task_number
@@ -109,36 +128,40 @@ def make_heirarchy(heirarchy,start_node, end_node, typ_e, parent_task, va):
 	variables=actions
 	print start_node 
 	print end_node
+	if(start_node==end_node):
+		return
 	make_node={"children":[],"typ":typ_e, "variables":[]}
 	make_node["variables"]=va
 	this_task=task_number
-	heirarchy[this_task]=make_node
+	hierarchy[this_task]=make_node
 	task_number=task_number+1
 	nodes=[]
 	top=0;
 	for edges in skeleton:
 		if(edges==start_node):
-			nodes.append(edges);
+			nodes.append(edges)
 			top=top+1
-			nodes.append(skeleton[edges]);
+			nodes.append(skeleton[edges])
 			break
 	curr_node=nodes[1]
-	while(curr_node!=end_node):
+	while(curr_node!=" " and curr_node!=end_node and skeleton[curr_node]!=" "):
 		nodes.append(skeleton[curr_node])
 		curr_node=skeleton[curr_node]
 	count=0
 	end_list=[]
 	for nod in nodes:
-		edges=my_edges[nod]
-		for dests in edges:
-			if(dests["dest"]==end_node):
-				count=count+1
-				end_list.append(nod);
+		if(nod!=" "):
+			edges=my_edges[nod]
+			for dests in edges:
+				if(dests["dest"]==end_node):
+					count=count+1
+					end_list.append(nod);
+		
 	print count
 	if(skeleton[start_node]==end_node):
 		count=count-1
 
-	if(count>2):
+	if(count>2 or typ_e=="divide"):
 		curr_start=start_node
 		ed=my_edges[start_node]
 		top=1
@@ -148,12 +171,12 @@ def make_heirarchy(heirarchy,start_node, end_node, typ_e, parent_task, va):
 					vc=0
 					for e in ed:
 						if(e["dest"]==nod):
-							var_ch=e[var_codes]
+							var_ch=e["var_codes"]
 							for i in range(0,len(var_ch)):
 								if(var_ch[i]==1):
 									vc=i+1
-					make_heirarchy(heirarchy,skeleton[curr_start],nod,"divide",this_task,[vc])
-					heirarchy[this_task]["variables"].append(vc)
+					make_hierarchy(hierarchy,skeleton[curr_start],nod,"divide",this_task,[vc])
+					hierarchy[this_task]["variables"].append(vc)
 					task_number=task_number+1
 					curr_start=nod
 
@@ -162,7 +185,7 @@ def make_heirarchy(heirarchy,start_node, end_node, typ_e, parent_task, va):
 	else:
 		path_from={}                          # for marking previous node
 		dist_from={}
-		heirarchy[this_task]["typ"]="sequence" # for storing distance through that route                        
+		hierarchy[this_task]["typ"]="sequence" # for storing distance through that route                        
 		for j in range(0,len(nodes)):         #marking all the nodes as maximum
 			dist_from[nodes[j]]=len(nodes)+1
 		dist_from[start_node]=0
@@ -191,22 +214,21 @@ def make_heirarchy(heirarchy,start_node, end_node, typ_e, parent_task, va):
 						del my_edges[path_from[curr_dest]][top]
 					else:
 						top=top+1
-				
-				make_heirarchy(heirarchy,path_from[curr_dest],curr_dest,"sequence" , this_task,[vc]) #needs to add this into heirarchy
-				heirarchy[this_task]["variables"].append(vc)
+				make_hierarchy(hierarchy,path_from[curr_dest],curr_dest,"sequence" , this_task,[vc]) #needs to add this into hierarchy
+				hierarchy[this_task]["variables"].append(vc)
 				task_number=task_number+1
 				curr_dest=path_from[curr_dest]
 
 		else:
 
-			heirarchy[this_task]["typ"]="sequence"
-			heirarchy[this_task]["value"]=[]
+			hierarchy[this_task]["typ"]="sequence"
+			hierarchy[this_task]["value"]=[]
 			task_number=task_number+1
 			ka1=end_node
 			ka=ka1.split("_")
 			new_node={"children":[],"typ":"Actions", "value": [variables[ka[0]]], "variables" :[] }
-			heirarchy[this_task]["children"].append(task_number) # adding primitive actions to higher heirarchy like pickup to pickup function
-			heirarchy[task_number]=new_node
+			hierarchy[this_task]["children"].append(task_number) # adding primitive actions to higher hierarchy like pickup to pickup function
+			hierarchy[task_number]=new_node
 			task_number=task_number+1
 			nn={"children":[],"typ":"Actions","value":[],"variables" :[]}
 			curr_node=skeleton[start_node]
@@ -216,14 +238,14 @@ def make_heirarchy(heirarchy,start_node, end_node, typ_e, parent_task, va):
 				nn["value"].append(variables[ka3[0]])
 				curr_node=skeleton[curr_node]
 			nn["value"]=list(set(nn["value"]))
-			heirarchy[task_number]=nn
-			heirarchy[this_task]["children"].append(task_number)
+			hierarchy[task_number]=nn
+			hierarchy[this_task]["children"].append(task_number)
 
 
-	heirarchy[parent_task]["children"].append(this_task)
+	hierarchy[parent_task]["children"].append(this_task)
 
 			
-data=json.load(open('100_Trajectories.json'))
+data=json.load(open('sample.json'))
 hea=data["Header"]
 header=hea.split("!")
 vi=header[0]
@@ -238,6 +260,8 @@ for i in range(0,len(v)):
 	act_back[c[i]]=v[i]
 actions["End"]=len(v)
 act_back[str(len(v))]="End"
+print actions
+print act_back
 
 v=header[2].split(" ")
 for i in range(0,len(v)):
@@ -274,7 +298,7 @@ for i in range(1,len(ed)):
   # ex- { "Start": [{code_for_dest:3,dest: "East1", var_codes: [0,0,0,0,0,0,0,0,1], initial_values:[0], new_values:[1]},{code_for_dest:3,dest: "East1", var_codes: [1,1,0,0,0,0,0,0,0], initial_values:[0,0], new_values:[1,0]},{code_for_dest:5, dest:"Pickup1", var_codes: [0,0,0,0,0,0,1,0], initial_values:[0], new_values:[1]}, {code_for_dest:6,dest: "Dropoff1", var_codes: [0,0,1,1,0,0,0,0,0], initial_values:[3,0], new_values:[-1,-1]}]}
 dest_to_end=[]
 
-heirarchy1={}    # ex-{task_number: {children:[], type:}}
+hierarchy1={}    # ex-{task_number: {children:[], type:}}
 for edge in my_edges:  #finding all the nodes directly connected to end
 	dests=my_edges[edge]
 	for i in range(0,len(dests)):
@@ -283,9 +307,9 @@ for edge in my_edges:  #finding all the nodes directly connected to end
 			dest_to_end.append(edge)
 task_number=1
 make_node={"children":[],"typ":"root","variables":[]}
-heirarchy1[0]=make_node
-make_heirarchy(heirarchy1,"Start","End","sequence",0,[])
-heirarchy2={}
+hierarchy1[0]=make_node
+make_hierarchy(hierarchy1,"Start","End","sequence",0,[])
+hierarchy2={}
 my_edges.clear();
 new_ed.clear();
 dicti.clear();
@@ -294,10 +318,10 @@ dicti.clear();
 
 
 
-for ki in range(1,2):
-	heirarchy2.clear();
-	ed=data["CatStructures"][3]["Actions"]
-	sk=data["CatStructures"][3]["Path"]
+for ki in range(1,n):
+	hierarchy2.clear();
+	ed=data["CatStructures"][ki]["Actions"]
+	sk=data["CatStructures"][ki]["Path"]
 	skeleton={}
 	for i in range(0,len(sk)-1):
 		skeleton[sk[i]]=sk[i+1]
@@ -330,9 +354,10 @@ for ki in range(1,2):
 				dest_to_end.append(edge)
 	task_number=1
 	make_node={"children":[],"typ":"root","variables":[]}
-	heirarchy2[0]=make_node
-	make_heirarchy(heirarchy2,"Start","End","sequence",0,[])
-	merge_heirarchy(heirarchy1,heirarchy2,0,0)
+	hierarchy2[0]=make_node
+	make_hierarchy(hierarchy2,"Start","End","sequence",0,[])
+	merge_hierarchy(hierarchy1,hierarchy2,0,0)
+	make_graph(hierarchy1,str(ki))
 	
 
 
@@ -348,27 +373,27 @@ g=nx.Graph()
 print actions
 print var
 node_added=[]
-for i in heirarchy1:
+for i in hierarchy1:
 	print i
-	print heirarchy1[i]
+	print hierarchy1[i]
 	if(i not in node_added):
 		node_added.append(i)
-		if(heirarchy1[i]["typ"]=="Actions"):
+		if(hierarchy1[i]["typ"]=="Actions"):
 			g.add_node(str(i))
 		else:
-			g.add_node(str(i),variables=heirarchy1[i]["variables"])
-	chi=heirarchy1[i]["children"]
+			g.add_node(str(i),variables=hierarchy1[i]["variables"])
+	chi=hierarchy1[i]["children"]
 	for j in range(0,len(chi)):
 		if(j not in node_added ):
 			node_added.append(j)
-			if(heirarchy1[j]["typ"]!="Actions"):
-				g.add_node(str(j), variables=heirarchy1[j]["variables"])
+			if(hierarchy1[j]["typ"]!="Actions"):
+				g.add_node(str(j), variables=hierarchy1[j]["variables"])
 			else:
 				g.add_node(str(j))
 		g.add_edge(str(i),str(j))
-	if heirarchy1[i]["typ"]=="Actions":
-		for j in range(0,len(heirarchy1[i]["value"])):
-			g.add_edge(str(i),act_back[str(heirarchy1[i]["value"][j])])
+	if hierarchy1[i]["typ"]=="Actions":
+		for j in range(0,len(hierarchy1[i]["value"])):
+			g.add_edge(str(i),act_back[str(hierarchy1[i]["value"][j])])
 
 #node_directory=[{typ:"Max", equation: "", task: 1 },{typ: "Q", equation: ""},{typ:"Action", name:""}]
 
