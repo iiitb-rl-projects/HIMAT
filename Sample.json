@@ -1,0 +1,261 @@
+{
+  "Actions": [
+    {
+      "Variables": {
+        "PassengerInTaxi": 0,
+        "Agentx": 0,
+        "Agenty": 1,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 1
+      },
+      "Direction": "North",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "Start North_0_0"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 0,
+        "Agentx": 0,
+        "Agenty": 2,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 2
+      },
+      "Direction": "North",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "North_0_0 North_0_1"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 0,
+        "Agentx": 0,
+        "Agenty": 3,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 3
+      },
+      "Direction": "North",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "North_0_1 North_0_2"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 0,
+        "Agentx": 0,
+        "Agenty": 4,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 4
+      },
+      "Direction": "North",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "North_0_2 North_0_3"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 1,
+        "Agentx": 0,
+        "Agenty": 4,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 5
+      },
+      "Direction": "Pickup",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "North_0_3 Pickup"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 1,
+        "Agentx": 0,
+        "Agenty": 4,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 6
+      },
+      "Direction": "Pickup",
+      "Codes": "0,0,0,0,0,0,1,0",
+      "Nodes": "Start Pickup"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 1,
+        "Agentx": 0,
+        "Agenty": 3,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 7
+      },
+      "Direction": "South",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "Pickup South_1_0"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 1,
+        "Agentx": 0,
+        "Agenty": 2,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 8
+      },
+      "Direction": "South",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "South_1_0 South_1_1"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 1,
+        "Agentx": 0,
+        "Agenty": 1,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 9
+      },
+      "Direction": "South",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "South_1_1 South_1_2"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 1,
+        "Agentx": 0,
+        "Agenty": 0,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 10
+      },
+      "Direction": "South",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "South_1_2 South_1_3"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 1,
+        "Agentx": 1,
+        "Agenty": 0,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 11
+      },
+      "Direction": "East",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "South_1_3 East_1_0"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 1,
+        "Agentx": 2,
+        "Agenty": 0,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 12
+      },
+      "Direction": "East",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "East_1_0 East_1_1"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 1,
+        "Agentx": 3,
+        "Agenty": 0,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 13
+      },
+      "Direction": "East",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "East_1_1 East_1_2"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 0,
+        "Agentx": 3,
+        "Agenty": 0,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 14
+      },
+      "Direction": "Dropoff",
+      "Codes": "0,0,0,0,0,0,0,1",
+      "Nodes": "East_1_2 Dropoff"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 0,
+        "Agentx": 3,
+        "Agenty": 0,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 15
+      },
+      "Direction": "Dropoff",
+      "Codes": "0,0,0,0,0,0,1,0",
+      "Nodes": "Pickup Dropoff"
+    },
+    {
+      "Variables": {
+        "PassengerInTaxi": 0,
+        "Agentx": 3,
+        "Agenty": 0,
+        "Passx": 0,
+        "Passy": 4,
+        "Destx": 3,
+        "Desty": 0,
+        "Changes": 16
+      },
+      "Direction": "Dropoff",
+      "Codes": "0,0,0,0,0,1,0,0",
+      "Nodes": "Start Dropoff"
+    },
+    {
+      "Variables":{
+        "PassengerInTaxi":0,
+        "Agentx":3,
+        "Agenty":0,
+        "Passx":0,
+        "Passy":4,
+        "Destx":3,
+        "Desty":0,
+        "Changes":16
+      },
+      "Direction":"End",
+      "Codes" : "1,1,1,1,1,1,1,1",
+      "Nodes": "Dropoff End"
+    }
+  ],
+  "Header": "North South East West Pickup Dropoff!0 1 2 3 4 5!agent_x agent_y passenger_location_x passenger_location_y passenger_destination_x passenger_destination_y passenger_in_taxi Changes!5 5 5 5 5 5 2!#!",
+  "Path": ["Start", "North_0_0", "North_0_1", "North_0_2", "North_0_3", "Pickup", "South_1_0", "South_1_1", "South_1_2", "South_1_3", "East_1_0", "East_1_1", "East_1_2", "Dropoff", "End"]
+}

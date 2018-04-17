@@ -1,0 +1,336 @@
+{
+  "CatStructures": [
+    {
+      "Actions": [
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 1
+          },
+          "Direction": "Goto",
+          "Codes": "0,0,0,0,0,1",
+          "Nodes": "Start Goto_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 1
+          },
+          "Direction": "MineGold",
+          "Codes": "0,0,1,0,0,0",
+          "Nodes": "Start MineGold_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 1
+          },
+          "Direction": "Goto",
+          "Codes": "1,1,0,0,0,0",
+          "Nodes": "Start Goto_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 1
+          },
+          "Direction": "Deposit",
+          "Codes": "0,0,0,0,1,0",
+          "Nodes": "Start Deposit_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 1
+          },
+          "Direction": "Deposit",
+          "Codes": "0,0,0,1,0,0",
+          "Nodes": "Start Deposit_0_1"
+        },
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 2
+          },
+          "Direction": "MineGold",
+          "Codes": "0,0,0,0,0,1",
+          "Nodes": "Goto_0_0 MineGold_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 2
+          },
+          "Direction": "MineGold",
+          "Codes": "1,1,0,0,0,0",
+          "Nodes": "Goto_0_0 MineGold_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 3
+          },
+          "Direction": "Goto",
+          "Codes": "0,0,0,0,0,1",
+          "Nodes": "MineGold_0_0 Goto_0_1"
+        },
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 3
+          },
+          "Direction": "Goto",
+          "Codes": "1,1,0,0,0,0",
+          "Nodes": "MineGold_0_0 Goto_0_1"
+        },
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 3
+          },
+          "Direction": "Deposit",
+          "Codes": "0,0,1,0,0,0",
+          "Nodes": "MineGold_0_0 Deposit_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 0,
+            "plx": 0,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 4
+          },
+          "Direction": "Deposit",
+          "Codes": "0,0,0,0,0,1",
+          "Nodes": "Goto_0_1 Deposit_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 4
+          },
+          "Direction": "Deposit",
+          "Codes": "1,1,0,0,0,0",
+          "Nodes": "Goto_0_1 Deposit_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 5
+          },
+          "Direction": "Goto",
+          "Codes": "0,0,0,0,0,1",
+          "Nodes": "Deposit_0_0 Goto_0_2"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 5
+          },
+          "Direction": "Goto",
+          "Codes": "1,1,0,0,0,0",
+          "Nodes": "Deposit_0_0 Goto_0_2"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 5
+          },
+          "Direction": "ChopWood",
+          "Codes": "0,0,1,0,0,0",
+          "Nodes": "Deposit_0_0 ChopWood_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 5
+          },
+          "Direction": "End",
+          "Codes": "0,0,0,0,1,0",
+          "Nodes": "Deposit_0_0 End"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 6
+          },
+          "Direction": "ChopWood",
+          "Codes": "0,0,0,0,0,1",
+          "Nodes": "Goto_0_2 ChopWood_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 6
+          },
+          "Direction": "ChopWood",
+          "Codes": "1,1,0,0,0,0",
+          "Nodes": "Goto_0_2 ChopWood_0_0"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 7
+          },
+          "Direction": "Goto",
+          "Codes": "0,0,0,0,0,1",
+          "Nodes": "ChopWood_0_0 Goto_0_3"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 7
+          },
+          "Direction": "Goto",
+          "Codes": "1,1,0,0,0,0",
+          "Nodes": "ChopWood_0_0 Goto_0_3"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 7
+          },
+          "Direction": "Deposit",
+          "Codes": "0,0,1,0,0,0",
+          "Nodes": "ChopWood_0_0 Deposit_0_1"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 8
+          },
+          "Direction": "Deposit",
+          "Codes": "0,0,0,0,0,1",
+          "Nodes": "Goto_0_3 Deposit_0_1"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 8
+          },
+          "Direction": "Deposit",
+          "Codes": "1,1,0,0,0,0",
+          "Nodes": "Goto_0_3 Deposit_0_1"
+        },
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 9
+          },
+          "Direction": "End",
+          "Codes": "0,0,0,0,0,1",
+          "Nodes": "Deposit_0_1 End"
+        },
+        
+        {
+          "Variables": {
+            "ply": 1,
+            "plx": 1,
+            "pr": 4,
+            "qw": 3,
+            "qg": 0,
+            "Changes": 9
+          },
+          "Direction": "End",
+          "Codes": "1,1,1,1,1,1",
+          "Nodes": "Deposit_0_1 End"
+        }
+      ],
+      "Path": [ "Start", "Goto_0_0", "MineGold_0_0", "Goto_0_1", "Deposit_0_0", "Goto_0_2", "ChopWood_0_0", "Goto_0_3", "Deposit_0_1", "End" ]
+    }
+  ],
+  "Header": "Goto ChopWood MineGold Deposit!0 1 2 3! ply plx pr qw qg Changes!5 5 5 5 5 5 2!#!"
+}
